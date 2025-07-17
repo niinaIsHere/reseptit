@@ -1,7 +1,7 @@
 # Recipes
 A web application where users can share meal recipes with each other.
 
-# Application features
+## Application features
 - You can create an account and log into the application
 - You can add, edit and delete your own meal recipes
 - The recipes include the ingredients and preparation steps
