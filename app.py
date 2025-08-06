@@ -2,7 +2,7 @@ import sqlite3
 from flask import Flask
 from flask import redirect, render_template, request
 from flask import session
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import db
 import config
 
@@ -11,6 +11,7 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
+    db = sqlite3.connect("databse.db")
     return render_template("start.html")
 
 @app.route("/register")
@@ -34,22 +35,23 @@ def create():
 
     return "Tunnus luotu"
 
-@app.route("/login", methods = ["POST"])
+@app.route("/login", methods = ["GET", "POST"])
 def login():
-    username = request.form["username"]
-    password = request.form["password"]
-    
-    sql = "SELECT password_hash FROM users WHERE username = ?"
-    password_hash = db.query(sql, [username])[0][0]
+    if request.method == "GET":
+        return render_template("index.html")
+
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        
+        sql = "SELECT password_hash FROM users WHERE username = ?"
+        password_hash = db.query(sql, [username])[0][0]
 
     if check_password_hash(password_hash, password):
         session["username"] = username
         return redirect("/")
     else:
         return "VIRHE: väärä tunnus tai salasana"
-    
-def check_password_hash(hash, password):
-    pass
 
 @app.route("/logout")
 def logout():
@@ -72,10 +74,11 @@ def create_recipe():
 @app.route("/recipe_result", methods=["POST"])
 def recipe_result():
     recipe = request.form["recipe"]
+    description = request.form["description"]
     menu = request.form["menu"]
     diet = request.form["diet"]
     skill = request.form["skill"]
-    return render_template("recipe_result.html", recipe=recipe, menu=menu, diet=diet, skill=skill)
+    return render_template("recipe_result.html", recipe=recipe, description=description, menu=menu, diet=diet, skill=skill)
 
 @app.route("/add_comment")
 def add_comment():
