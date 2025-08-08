@@ -11,7 +11,7 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    db = sqlite3.connect("databse.db")
+    db = sqlite3.connect("database.db")
     return render_template("start.html")
 
 @app.route("/register")
@@ -44,10 +44,13 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         
-        sql = "SELECT password_hash FROM users WHERE username = ?"
-        password_hash = db.query(sql, [username])[0][0]
+        sql = "SELECT id, password_hash FROM users WHERE username = ?"
+        result = db.query(sql, [username])[0]
+        user_id = result["id"]
+        password_hash = result["password_hash"]
 
     if check_password_hash(password_hash, password):
+        session["user_id"] = user_id
         session["username"] = username
         return redirect("/")
     else:
@@ -55,6 +58,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+    del session["user_id"]
     del session["username"]
     return redirect("/")
 
@@ -65,7 +69,7 @@ def page1():
 
 @app.route("/page2")
 def page2():
-    return "Tieto istunnosta: " + session["test"]
+    return "Tieto istunnosta: " + session["test"] + str(session["user_id"])
 
 @app.route("/create_recipe")
 def create_recipe():
@@ -73,12 +77,17 @@ def create_recipe():
 
 @app.route("/recipe_result", methods=["POST"])
 def recipe_result():
-    recipe = request.form["recipe"]
+    user_id = session["user_id"]
+    title = request.form["title"]
     description = request.form["description"]
     menu = request.form["menu"]
-    diet = request.form["diet"]
     skill = request.form["skill"]
-    return render_template("recipe_result.html", recipe=recipe, description=description, menu=menu, diet=diet, skill=skill)
+
+    sql = """INSERT INTO recipes (user_id, title, description, menu, skill)
+                VALUES (?, ?, ?, ?, ?)"""
+    db.execute(sql, [user_id, title, description, menu, skill])
+
+    return render_template("recipe_result.html", title=title, description=description, menu=menu, skill=skill)
 
 @app.route("/add_comment")
 def add_comment():
