@@ -16,3 +16,8 @@ def update_item(item_id, user_id, title, description, menu, skill):
                 SET user_id = ?, title = ?, description = ?, menu = ?, skill = ?
                 WHERE id = ?"""
     return db.execute(sql, [user_id, title, description, menu, skill, item_id])
+
+def remove_item(item_id):
+    sql = """DELETE FROM recipes
+                WHERE id = ?"""
+    return db.execute(sql, [item_id])
