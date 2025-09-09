@@ -5,6 +5,7 @@ from flask import session
 from werkzeug.security import generate_password_hash, check_password_hash
 import db
 import config
+import items
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -12,7 +13,13 @@ app.secret_key = config.secret_key
 @app.route("/")
 def index():
     db = sqlite3.connect("database.db")
-    return render_template("start.html")
+    all_items = items.get_user_items()
+    return render_template("start.html", items = all_items)
+
+@app.route("/item/<int:item_id>")
+def show_item(item_id):
+    item = items.get_item(item_id)
+    return render_template("show_item.html", item=item)
 
 @app.route("/register")
 def register():
@@ -87,7 +94,25 @@ def recipe_result():
                 VALUES (?, ?, ?, ?, ?)"""
     db.execute(sql, [user_id, title, description, menu, skill])
 
-    return render_template("recipe_result.html", title=title, description=description, menu=menu, skill=skill)
+    return redirect("/")
+
+@app.route("/edit/<int:item_id>")
+def edit_recipe(item_id):
+    item = items.get_item(item_id)
+    return render_template("edit_recipe.html", item=item)
+
+@app.route("/update_item", methods=["POST"])
+def update_item():
+    item_id = request.form["item_id"]
+    user_id = session["user_id"]
+    title = request.form["title"]
+    description = request.form["description"]
+    menu = request.form["menu"]
+    skill = request.form["skill"]
+
+    items.update_item(item_id, user_id, title, description, menu, skill)
+
+    return redirect("/item/" + str(item_id))
 
 @app.route("/add_comment")
 def add_comment():
