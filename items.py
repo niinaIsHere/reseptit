@@ -3,9 +3,13 @@ import db
 def add_item():
     pass
 
-def get_user_items():
+def get_all_items():
     sql = """SELECT * FROM recipes"""
     return db.query(sql)
+
+def get_user_items(user_id):
+    sql = """SELECT * FROM recipes WHERE user_id = ?"""
+    return db.query(sql, [user_id])
 
 def get_item(item_id):
     sql = """SELECT * FROM recipes WHERE id == ?"""
@@ -21,3 +25,8 @@ def remove_item(item_id):
     sql = """DELETE FROM recipes
                 WHERE id = ?"""
     return db.execute(sql, [item_id])
+
+def find_item(query):
+    sql = """SELECT * FROM recipes WHERE title LIKE ? OR description LIKE ?"""
+    return db.query(sql, ["%" + query + "%", "%" + query + "%"])
+
