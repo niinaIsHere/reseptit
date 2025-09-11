@@ -12,9 +12,11 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
+    user_id = session["user_id"]
     db = sqlite3.connect("database.db")
-    all_items = items.get_user_items()
-    return render_template("start.html", items = all_items)
+    user_items = items.get_user_items(user_id)
+    all_items = items.get_all_items()
+    return render_template("start.html", items = user_items, all_items = all_items)
 
 @app.route("/item/<int:item_id>")
 def show_item(item_id):
@@ -125,6 +127,16 @@ def remove_item(item_id):
             return redirect("/")
         else:
             return redirect("/item/" + str(item_id))
+
+@app.route("/search_item", methods = ["GET"])
+def find_item():
+    query = request.args.get("query")
+    if query:
+        results = items.find_item(query)
+    else:
+        query = ""
+        results = []
+    return render_template("find_item.html", query=query, results=results)
 
 @app.route("/add_comment")
 def add_comment():
