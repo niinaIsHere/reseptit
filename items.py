@@ -13,7 +13,8 @@ def get_user_items(user_id):
 
 def get_item(item_id):
     sql = """SELECT * FROM recipes WHERE id == ?"""
-    return db.query(sql, [item_id])[0]
+    result = db.query(sql, [item_id])
+    return result[0] if result else None
 
 def update_item(item_id, user_id, title, description, menu, skill):
     sql = """UPDATE recipes
@@ -30,3 +31,6 @@ def find_item(query):
     sql = """SELECT * FROM recipes WHERE title LIKE ? OR description LIKE ?"""
     return db.query(sql, ["%" + query + "%", "%" + query + "%"])
 
+def get_tags(item_id):
+    sql = """SELECT * FROM tags WHERE recipe_id = ?"""
+    return db.query(sql, [item_id])
