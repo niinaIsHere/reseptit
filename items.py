@@ -16,6 +16,10 @@ def get_item(item_id):
     result = db.query(sql, [item_id])
     return result[0] if result else None
 
+def get_classes(item_id):
+    sql = """SELECT menu, skill FROM recipes WHERE id = ?"""
+    return db.query(sql, [item_id])
+
 def update_item(item_id, user_id, title, description, menu, skill):
     sql = """UPDATE recipes
                 SET user_id = ?, title = ?, description = ?, menu = ?, skill = ?
@@ -28,9 +32,29 @@ def remove_item(item_id):
     return db.execute(sql, [item_id])
 
 def find_item(query):
-    sql = """SELECT * FROM recipes WHERE title LIKE ? OR description LIKE ?"""
+    sql = """SELECT * FROM recipes
+            WHERE title LIKE ? OR description LIKE ?"""
     return db.query(sql, ["%" + query + "%", "%" + query + "%"])
 
 def get_tags(item_id):
     sql = """SELECT * FROM tags WHERE recipe_id = ?"""
     return db.query(sql, [item_id])
+
+def remove_tags(item_id):
+    sql = """DELETE FROM tags
+                WHERE recipe_id = ?"""
+    return db.execute(sql, [item_id])
+
+def add_comment(user_id, item_id, content):
+    sql = """INSERT INTO comments (user_id, recipe_id, content) VALUES (?,?,?)"""
+    return db.execute(sql, [user_id, item_id, content])
+
+def get_comments(item_id):
+    sql = """SELECT content, user_id, username FROM comments c JOIN users u ON c.user_id = u.id
+            WHERE recipe_id = ?"""
+    return db.query(sql, [item_id])
+
+def remove_comments(item_id):
+    sql = """DELETE FROM comments WHERE recipe_id = ?"""
+    return db.execute(sql, [item_id])
+
