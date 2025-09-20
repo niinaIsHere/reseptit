@@ -12,3 +12,8 @@ A web application where users can share meal recipes with each other.
 - You can classify a recipe into one or many categories
 - You can comment and rate other users' recipes
 - The comments and average rating are visible on all recipes.
+
+# Testing
+- Install flask: pip install flask
+- Gather database: database.db < schema.sql
+- Start app: flask run
