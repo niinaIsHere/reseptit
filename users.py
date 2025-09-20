@@ -23,3 +23,6 @@ def get_user(user_id):
     sql = """SELECT * FROM users WHERE users.id = ?"""
     return db.query(sql, [user_id])[0]
 
+def get_comments(user_id):
+    sql = """SELECT * FROM comments WHERE user_id = ?"""
+    return db.query(sql, [user_id])
