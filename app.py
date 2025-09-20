@@ -28,9 +28,13 @@ def index():
 def show_item(item_id):
     item = items.get_item(item_id)
     item_tags = items.get_tags(item_id)
+    user = users.get_user(item["user_id"])
+    username = user["username"]
+    comments = items.get_comments(item_id)
+
     if not item:
         abort(404)
-    return render_template("show_item.html", item=item, item_tags=item_tags)
+    return render_template("show_item.html", username=username, item=item, item_tags=item_tags, comments=comments)
 
 @app.route("/register")
 def register():
@@ -119,6 +123,7 @@ def recipe_result():
 def edit_recipe(item_id):
     require_login()
     item = items.get_item(item_id)
+    tags = items.get_tags(item_id)
     if not item:
         abort(404)
     if item["user_id"] != session["user_id"]:
@@ -160,7 +165,9 @@ def remove_item(item_id):
         return render_template("remove_item.html", item=item)
     if request.method == "POST":
         if "remove" in request.form:
+            items.remove_tags(item_id)
             items.remove_item(item_id)
+            items.remove_comments(item_id)
             return redirect("/")
         else:
             return redirect("/item/" + str(item_id))
@@ -176,10 +183,21 @@ def find_item():
         results = []
     return render_template("find_item.html", query=query, results=results)
 
-@app.route("/add_comment")
+@app.route("/add_comment", methods = ["POST"])
 def add_comment():
     require_login()
-    return render_template("add_comment.html")
+    content = request.form["content"]
+    if not content:
+        abort(403)
+    item_id = request.form["item_id"]
+    item = items.get_item(item_id)
+    if not item:
+        abort(403)
+    user_id = session["user_id"]
+
+    items.add_comment(user_id, item_id, content)
+
+    return redirect("/item/" + str(item_id))
 
 @app.route("/comment_result", methods=["POST"])
 def comment_result():
@@ -191,6 +209,7 @@ def comment_result():
 def show_user(user_id):
     user = users.get_user(user_id)
     user_items = items.get_user_items(user_id)
+    comments = users.get_comments(user_id)
     if not user:
         abort(403)
-    return render_template("show_user.html", user=user, user_items=user_items)
+    return render_template("show_user.html", user=user, user_items=user_items, comments=comments)
