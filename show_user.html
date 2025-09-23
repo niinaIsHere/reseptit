@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Profile</title>
+</head>
+
+<body>
+  <h1>{{ user.username }}</h1>
+  
+  <h2>User's Recipes</h2>
+  <p>{{ user.username }} has uploaded {{ user_items | count }} recipes</p>
+  <ul>
+    {% for item in user_items %}
+    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+  
+  <h2>User's Recent Activity</h2>
+  <ul>
+    {% for comment in comments %}
+    <li>{{ comment.content }}</li>
+    {% endfor %}
+  </ul>
+
+  <p>
+    <a href="/">Back</a>
+  </p>
+
+</body>
+
+</html>
+

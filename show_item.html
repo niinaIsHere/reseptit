@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{ item.title }}</title>
+</head>
+
+<body>
+  <h1>{{ item.title }}</h1>
+  <p>{{ item.description }}</p>
+  <p><b>Menu category:</b> {{ item.menu }}</p>
+  <p><b>Skill level:</b> {{ item.skill }}</p>
+  <p><b>Tags:</b></p>
+      <ul>
+      {% for tag in item_tags %}
+        <li>{{ tag.tag }}</li>
+      {% endfor %}
+    </ul>
+  <p>
+    Uploaded By: <a href="/user/{{ item.user_id }}">{{ username }}</a>
+  </p>
+  
+  {% if session.user_id == item.user_id %}
+  <p>
+    <a href="/edit/{{ item.id }}">Edit</a>
+    <a href="/remove_item/{{ item.id }}">Delete</a>
+  </p>
+  {% endif %}
+
+  <h3>{{ comments | count }} comments:</h3>
+  <ul style="list-style-type:none;">
+  {% for comment in comments %}
+    <li><a href="/user/{{ comment.user_id }}">{{ comment.username }}:<br></a>{{ comment.content }}</li>
+  {% endfor %}
+  </ul>
+
+  <p><b>Add a Comment</b></p>
+  <form action="/add_comment" method="post">
+    <textarea name="content" required></textarea>
+    <input type="hidden" name="item_id" value="{{ item.id }}"/>
+    <br>
+    <input type="submit" value="Post" />
+  </form>
+
+  <p>
+    <a href="/">Back</a>
+  </p>
+</body>
+
+</html>
+

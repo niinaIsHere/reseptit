@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Recipe World</title>
+</head>
+
+<body>
+  <h1>Recipe World</h1>
+  
+  {% if session.username %}
+  <p>
+  You're logged in as {{ session.username }}
+  </p>
+  <p>
+    <a href="/create_recipe">Create New Recipe</a>
+  </p>
+  <p>
+    <a href="/search_item">Search</a>
+  </p>
+  
+  <h2>My Recipes</h2>
+  
+  <ul>
+    {% for item in items %}
+    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+  
+  <h2>All Recipes</h2>
+
+  <ul>
+    {% for item in all_items %}
+    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+  <p>
+    <a href="/logout">Log out</a>
+  </p>
+ {% endif %}
+
+  {% if 'username' not in session %}
+  
+  <p>
+    Come share your recipes with us!
+  </p>
+  
+  <p>
+    <a href="/login">Log in</a>
+    <a href="/register">Create account</a>
+  </p>
+  {% endif %}
+</body>
+
+</html>

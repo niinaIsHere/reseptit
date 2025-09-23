@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Search</title>
+</head>
+
+<body>
+
+  <h1>Search for Recipes:</h1>
+  <form action="/search_item" method="get">
+    <p>
+      <input type="text" name="query" value="{{ query }}" />
+    </p>
+    
+      <h3>Filter results by:</h3>
+    <p>
+      <input type="checkbox" name="tag" value="Vegan" /> Vegan
+      <input type="checkbox" name="tag" value="Vegetarian" /> Vegetarian
+      <input type="checkbox" name="tag" value="Fish" /> Fish
+      <input type="checkbox" name="tag" value="Chicken" /> Chicken
+      <input type="checkbox" name="tag" value="Meat" /> Meat
+      <input type="checkbox" name="tag" value="Pasta" /> Pasta
+      <input type="checkbox" name="tag" value="Salad" /> Salad
+      <input type="checkbox" name="tag" value="Oven" /> Oven
+      <input type="checkbox" name="tag" value="Soup" /> Soup
+    </p>
+    
+    <input type="submit" value="Search" />
+    <a href="/">Back<a/>
+  </form>
+  
+  {% if query %}
+  <h2>Results</h2>
+  <ul>
+    {% for item in results %}
+    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+  
+  {% endif %}
+  
+</body>
+</html>
