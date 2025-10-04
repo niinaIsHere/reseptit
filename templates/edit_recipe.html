@@ -44,7 +44,29 @@
     <input type="submit" value="Update Recipe" />
     
     <h3>Tags:</h3>
+    <p>
+      <input type="checkbox" name="tag" value="Vegan" /
+        {% if "Vegan" in selected_tags %}checked{% endif %}> Vegan
+      <input type="checkbox" name="tag" value="Vegetarian" /
+        {% if "Vegetarian" in selected_tags %}checked{% endif %}> Vegetarian
+      <input type="checkbox" name="tag" value="Fish" /
+        {% if "Fish" in selected_tags %}checked{% endif %}> Fish
+      <input type="checkbox" name="tag" value="Chicken" /
+        {% if "Chicken" in selected_tags %}checked{% endif %}> Chicken
+      <input type="checkbox" name="tag" value="Meat" /
+        {% if "Meat" in selected_tags %}checked{% endif %}> Meat
+      <input type="checkbox" name="tag" value="Pasta" /
+        {% if "Pasta" in selected_tags %}checked{% endif %}> Pasta
+      <input type="checkbox" name="tag" value="Salad" /
+        {% if "Salad" in selected_tags %}checked{% endif %}> Salad
+      <input type="checkbox" name="tag" value="Oven" /
+        {% if "Oven" in selected_tags %}checked{% endif %}> Oven
+      <input type="checkbox" name="tag" value="Soup" /
+        {% if "Soup" in selected_tags %}checked{% endif %}> Soup
+    </p>
     
+    <input type="submit" value="Update recipe" />
+
     <p>
       <a href="/">Back</a>
     </p>
