@@ -10,13 +10,16 @@
   
   {% if session.username %}
   <p>
-  You're logged in as {{ session.username }}
+  Hello there! You're logged in as {{ session.username }}
+  </p>
+  <p>
+    <a href="/user/{{ session.user_id }}">My Profile</a>
   </p>
   <p>
     <a href="/create_recipe">Create New Recipe</a>
   </p>
   <p>
-    <a href="/search_item">Search</a>
+    <a href="/search_item">Search for Recipes</a>
   </p>
   
   <h2>My Recipes</h2>
@@ -27,13 +30,20 @@
     {% endfor %}
   </ul>
   
+  <h2>Most Popular</h2>
+  <ul>
+    {% for item in popular_items %}
+    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>  
+  
   <h2>All Recipes</h2>
-
   <ul>
     {% for item in all_items %}
     <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
     {% endfor %}
   </ul>
+      
   <p>
     <a href="/logout">Log out</a>
   </p>
