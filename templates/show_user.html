@@ -8,7 +8,25 @@
 <body>
   <h1>{{ user.username }}</h1>
   
-  <h2>User's Recipes</h2>
+  <p>User created on {{ user.created }}</p>
+  
+  <div>
+  <p><b>Bio</b></p>
+  
+    {% if bio == None %}
+      <p><i>User hasn't yet written a bio</i></p>
+    {% else %}
+      {{ bio }}
+    {% endif %}
+    
+    {% if session.user_id == user.id %}
+    <p>
+    <a href="/update_bio">Edit</a>
+    </p>
+    {% endif %}
+  </div>
+
+  <h3>User's Recipes</h3>
   <p>{{ user.username }} has uploaded {{ user_items | count }} recipes</p>
   <ul>
     {% for item in user_items %}
@@ -16,10 +34,19 @@
     {% endfor %}
   </ul>
   
-  <h2>User's Recent Activity</h2>
+  <p><b>Average Rating:</b></p><h2>{{ rating }}</h2>
+
+  <h3>Recent Activity</h3>
+  {% if message %}
+    <p><i>{{ message }}</i>
+  {% endif %}
   <ul>
-    {% for comment in comments %}
-    <li>{{ comment.content }}</li>
+    {% for act in activity %}
+      {% if act.type == 'comment' %}
+      <li>User commented on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
+      {% elif act.type == 'rating' %}
+      <li>User gave a rating on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
+      {% endif %}
     {% endfor %}
   </ul>
 
@@ -30,4 +57,3 @@
 </body>
 
 </html>
-
