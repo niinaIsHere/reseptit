@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Update bio</title>
+</head>
+
+<body>
+  
+  <h2>Update Your Bio</h2>
+
+  <form action="/bio_result" method="post">
+
+    <p>
+      <textarea name="content" rows="8" cols="40" maxlength="500" required></textarea>
+    </p>
+    
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <input type="submit" value="Update" />
+    
+    <p>
+      <a href="/">Back</a>
+    </p>
+  </form>
+</body>
+
+</html>

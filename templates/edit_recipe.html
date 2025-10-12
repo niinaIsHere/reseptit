@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Edit Recipe</title>
+</head>
+
+<body>
+  
+  <h1>Edit Your Recipe</h1>
+
+  <form action="/update_item" method="post">
+    <p>
+      Title: <br />
+      <input type="text" name="title" value="{{ item.title }}" maxlength="50" required />
+    </p>
+    
+    <p>
+      Recipe: <br />
+      <textarea name="description" rows="8" cols="40" maxlength="1000" required>{{ item.description }}</textarea>
+    </p>
+    
+    <p>Recipe Type:</p>
+    <p>
+      <input type="radio" name="menu" value="Appetizer" /
+        {% if item.menu == "Appetizer" %}checked{% endif %}> Appetizer
+      <input type="radio" name="menu" value="Main Course" /
+        {% if item.menu == "Main Course" %}checked{% endif %}> Main Course
+      <input type="radio" name="menu" value="Dessert" /
+        {% if item.menu == "Dessert" %}checked{% endif %}> Dessert
+      <input type="radio" name="menu" value="Side Dish" /
+        {% if item.menu == "Side Dish" %}checked{% endif %}> Side Dish
+    </p>
+    <p>Skill Level:</p>
+    <p>
+      <input type="radio" name="skill" value="Beginner" /
+        {% if item.skill == "Beginner" %}checked{% endif %}> Beginner
+      <input type="radio" name="skill" value="Intermediate" /
+        {% if item.skill == "Intermediate" %}checked{% endif %}> Intermediate
+      <input type="radio" name="skill" value="Advanced" /
+        {% if item.skill == "Advanced" %}checked{% endif %}> Advanced
+    </p>
+    <input type="hidden" name="item_id" value="{{ item.id }}" />
+    
+    <h3>Tags:</h3>
+    <p>
+      <input type="checkbox" name="tag" value="Vegan" /
+        {% if "Vegan" in selected_tags %}checked{% endif %}> Vegan
+      <input type="checkbox" name="tag" value="Vegetarian" /
+        {% if "Vegetarian" in selected_tags %}checked{% endif %}> Vegetarian
+      <input type="checkbox" name="tag" value="Fish" /
+        {% if "Fish" in selected_tags %}checked{% endif %}> Fish
+      <input type="checkbox" name="tag" value="Chicken" /
+        {% if "Chicken" in selected_tags %}checked{% endif %}> Chicken
+      <input type="checkbox" name="tag" value="Meat" /
+        {% if "Meat" in selected_tags %}checked{% endif %}> Meat
+      <input type="checkbox" name="tag" value="Pasta" /
+        {% if "Pasta" in selected_tags %}checked{% endif %}> Pasta
+      <input type="checkbox" name="tag" value="Salad" /
+        {% if "Salad" in selected_tags %}checked{% endif %}> Salad
+      <input type="checkbox" name="tag" value="Oven" /
+        {% if "Oven" in selected_tags %}checked{% endif %}> Oven
+      <input type="checkbox" name="tag" value="Soup" /
+        {% if "Soup" in selected_tags %}checked{% endif %}> Soup
+    </p>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <input type="submit" value="Update recipe" />
+
+    <p>
+      <a href="/">Back</a>
+    </p>
+  </form>
+</body>
+
+</html>

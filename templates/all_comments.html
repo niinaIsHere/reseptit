@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{ item.title }}</title>
+</head>
+
+<body>
+  <h3>Showing all {{ comments | count }} comments:</h3>
+  <ul>
+  {% for comment in comments %}
+    <li><i>{{ comment.created[:10] }} </i><a href="/user/{{ comment.user_id }}">{{ comment.username }}:</a><br>{{ comment.content }}</li>
+  {% endfor %}
+  </ul>
+  
+  <p><b>Add a Comment</b></p>
+  <form action="/add_comment" method="post">
+    <textarea name="content" required></textarea>    
+    <input type="hidden" name="item_id" value="{{ item.id }}"/>
+    <br>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"/>
+    <input type="submit" value="Post" />
+  </form>
+
+  <p>
+    <a href="/">Back</a>
+  </p>
+</body>
+
+</html>
+

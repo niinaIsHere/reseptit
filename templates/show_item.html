@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{ item.title }}</title>
+</head>
+
+<body>
+  <h1>{{ item.title }}</h1>
+  <p>{{ item.description }}</p>
+  <p><b>Menu category:</b> {{ item.menu }}</p>
+  <p><b>Skill level:</b> {{ item.skill }}</p>
+  <p><b>Tags:</b></p>
+      <ul>
+      {% for tag in item_tags %}
+        <li>{{ tag.tag }}</li>
+      {% endfor %}
+    </ul>
+  <p>
+    <i>Uploaded by</i> <a href="/user/{{ item.user_id }}">{{ username }}</a><i> on {{ item.created[:10] }}</i>
+  </p>
+
+  {% if session.user_id == item.user_id %}
+  <p>
+    <a href="/edit/{{ item.id }}">Edit</a>
+    <a href="/remove_item/{{ item.id }}">Delete</a>
+  </p>
+  {% endif %}
+
+  <h3>Rating:</h3>
+    {% if rating == None %}
+      <p><b>-</b></p>
+    {% else %}
+      <p><h3>{{ rating[0] }}</h3>
+      <em>(out of <b>{{ rating[1] }}</b> ratings)</em></p>
+    {% endif %}
+  
+    {% if user_rating != 0 %}
+      <p>You rated this recipe:<b> {{ user_rating }}</b></p>
+    {% endif %}
+  
+    {% if user_rating == 0 %}
+      <p><b>Rate Recipe</b></p>
+    <form action="/add_rating" method="post">
+      <input type="radio" name="rating" value="1"/>1
+      <input type="radio" name="rating" value="2"/>2
+      <input type="radio" name="rating" value="3"/>3
+      <input type="radio" name="rating" value="4"/>4
+      <input type="radio" name="rating" value="5"/>5
+      <input type="hidden" name="item_id" value="{{ item.id }}"/>
+      <br>
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+      <input type="submit" value="Rate" />
+    </form>
+    {% endif %}
+
+  {% if comments | count > 10 %}
+    <h3>Showing 10 of {{ comments | count }} comments:</h3>
+  {% else %}
+    <h3>{{ comments | count }} comments:</h3>    
+  {% endif %}
+  
+  <ul>
+  {% for comment in comments[-10:] %}
+    <li><i>{{ comment.created[:10] }} </i><a href="/user/{{ comment.user_id }}">{{ comment.username }}:</a><br>{{ comment.content }}</li>
+  {% endfor %}
+  </ul>
+  
+  {% if comments | count > 10 %}
+    <p>
+    <a href="/item/{{ item.id }}/comments">Show more</a>
+    </p>
+  {% endif %}  
+
+  <p><b>Add a Comment:</b></p>
+  <form action="/add_comment" method="post">
+    <textarea name="content" required></textarea>    
+    <input type="hidden" name="item_id" value="{{ item.id }}"/>
+    <br>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    <input type="submit" value="Post" />
+  </form>  
+
+  <p>
+    <a href="/">Back</a>
+  </p>
+</body>
+
+</html>
+
