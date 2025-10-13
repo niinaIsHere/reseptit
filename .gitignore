@@ -1,5 +1,6 @@
 # Ignore database
 database.db
+data/
 
 # Ignore virtual environment
 venv/
