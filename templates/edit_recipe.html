@@ -41,7 +41,6 @@
         {% if item.skill == "Advanced" %}checked{% endif %}> Advanced
     </p>
     <input type="hidden" name="item_id" value="{{ item.id }}" />
-    <input type="submit" value="Update Recipe" />
     
     <h3>Tags:</h3>
     <p>
@@ -64,7 +63,7 @@
       <input type="checkbox" name="tag" value="Soup" /
         {% if "Soup" in selected_tags %}checked{% endif %}> Soup
     </p>
-    
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
     <input type="submit" value="Update recipe" />
 
     <p>

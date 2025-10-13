@@ -12,7 +12,6 @@ def check_login(username, password):
     result = db.query(sql, [username])
     if not result:
         return None
-    
     user_id = result[0]["id"]
     password_hash = result[0]["password_hash"]
     if check_password_hash(password_hash, password):
@@ -20,8 +19,22 @@ def check_login(username, password):
     else:
         return None
 
+def valid_username(username):
+    if len(username) > 20:
+        return (False, "Username is too long")
+    if len(username) < 3:
+        return (False, "Username is too short")
+    if not username.isalnum():
+        return (False, "Username cannot include whitespaces or special characters")
+    return (True, None)
+
+def valid_password(password):
+    if len(password) < 8:
+        return (False, "Password is too short")
+    return (True, None)
+
 def get_user(user_id):
-    sql = """SELECT * FROM users WHERE users.id = ?"""
+    sql = """SELECT id, username, created FROM users WHERE users.id = ?"""
     return db.query(sql, [user_id])[0]
 
 def get_bio(user_id):
@@ -36,8 +49,15 @@ def update_bio(user_id, content):
     sql = """INSERT OR REPLACE INTO profiles (user_id, bio) VALUES (?, ?)"""
     return db.execute(sql, [user_id, content])
 
+def valid_bio(bio):
+    if len(bio) > 500:
+        return (False, "Bio is too long")
+    if len(bio) < 2:
+        return (False, "Bio is too short")
+    return (True, None)
+
 def get_comments(user_id):
-    sql = """SELECT * FROM comments WHERE user_id = ?"""
+    sql = """SELECT recipe_id, content, created FROM comments WHERE user_id = ?"""
     return db.query(sql, [user_id])
 
 def get_rating(user_id, item_id):
