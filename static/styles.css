@@ -43,9 +43,9 @@ h3 {
 
 .form-container {
   display: flex;
-  flex-direction: column; /* or row */
-  align-items: center;     /* horizontal alignment */
-  justify-content: center; /* vertical alignment */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 a	{ 
