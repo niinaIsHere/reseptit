@@ -25,8 +25,8 @@
   {% endfor %}
   </ul>
   
-  <p><b>Add a Comment</b></p>
   <form action="/add_comment" method="post">
+    <label for="content"><p><b>Add a Comment</b></p></label>
     <textarea name="content" required></textarea>    
     <input type="hidden" name="item_id" value="{{ item.id }}"/>
     <br>

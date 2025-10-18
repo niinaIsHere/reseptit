@@ -60,6 +60,10 @@ def get_comments(user_id):
     sql = """SELECT recipe_id, content, created FROM comments WHERE user_id = ?"""
     return db.query(sql, [user_id])
 
+def get_ratings(user_id):
+    sql = """SELECT recipe_id, rating, created FROM ratings WHERE user_id = ?"""
+    return db.query(sql, [user_id])
+
 def get_rating(user_id, item_id):
     sql = """SELECT rating FROM ratings WHERE user_id = ? AND recipe_id = ?"""
     result = db.query(sql, [user_id, item_id])
@@ -90,3 +94,11 @@ def recent_activity(user_id):
             ORDER BY act.created DESC
             LIMIT 5"""
     return db.query(sql, [user_id])
+
+def comments_received(user_id):
+    sql = """SELECT COUNT(*) FROM recipes r JOIN comments c ON r.id = c.recipe_id WHERE r.user_id = ?"""
+    return db.query(sql, [user_id])[0][0]
+
+def ratings_received(user_id):
+    sql = """SELECT COUNT(*) FROM recipes r JOIN ratings rt ON r.id = rt.recipe_id WHERE r.user_id = ?"""
+    return db.query(sql, [user_id])[0][0]

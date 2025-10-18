@@ -18,12 +18,16 @@
   {% else %}
   <form action="/login" method="post">
     <p>
-      Username: <br />
-      <input type="text" name="username" />
+    <label for="username">Username:</label>
+    <br>
+    <input type="text" name="username" />
+    <br>
     </p>
     <p>
-      Password: <br />
-      <input type="password" name="password" />
+    <label for="password">Password:</label>
+    <br>
+    <input type="password" name="password" />
+    <br>
     </p>
     <input type="submit" value="Log in" />
   </form>

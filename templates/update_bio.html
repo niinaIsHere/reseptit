@@ -7,27 +7,21 @@
 </head>
 
 <body>
-  <h2>Update Your Bio</h2>
   <p>
   <div class="top-page">
     <a href="/">Front Page</a>
     <a href="/user/{{ session.user_id }}">My Profile</a>
   </div>
   </p>
-
   <div class="form-wrapper">
     <form action="/bio_result" method="post">
-
+      <label for="bio"><h2>Update Your Bio</h2></label>
       <p>
         <textarea name="content" rows="8" cols="40" maxlength="500" required></textarea>
       </p>
       
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
       <input type="submit" value="Update" />
-      
-      <p>
-        <a href="/" class="button">Back</a>
-      </p>
     </form>
   </div>
 </body>

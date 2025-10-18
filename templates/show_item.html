@@ -18,7 +18,7 @@
   </div>
   <div class="recipe-view">
     <h2 class="recipe-title">{{ item.title }}</h2>
-    <p>{{ item.description }}</p>
+    <p><pre style="font-family: Arial;">{{ item.description }}</pre></p>
     <p><b class="recipe-subtitle">Menu category:</b> {{ item.menu }}</p>
     <p><b class="recipe-subtitle">Skill level:</b> {{ item.skill }}</p>
     <p><b class="recipe-subtitle">Tags:</b></p>
@@ -55,9 +55,9 @@
   </div> 
  
     {% if user_rating == 0 %}
-      <p style="font-size: 20px;"><b>Rate Recipe</b></p>
     <div class="form-wrapper" style="padding-bottom: 40px;">  
     <form action="/add_rating" method="post">
+      <label for="rating"><b style="font-size: 20px;">Rate Recipe</b></label><br>
       <input type="radio" name="rating" value="1"/>1
       <input type="radio" name="rating" value="2"/>2
       <input type="radio" name="rating" value="3"/>3
@@ -92,8 +92,8 @@
       </p>
     {% endif %}  
 
-    <p><b>Add a Comment:</b></p>
     <form action="/add_comment" method="post">
+      <label for="comment"><b>Add a Comment:</b></label><br>
         <textarea name="content" required></textarea>    
         <input type="hidden" name="item_id" value="{{ item.id }}"/>
         <br>

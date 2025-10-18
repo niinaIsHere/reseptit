@@ -281,6 +281,9 @@ def show_user(user_id):
     user_items = items.get_user_items(user_id)
     comments = users.get_comments(user_id)
     rating = users.get_average_rating(user_id)
+    ratings = users.get_ratings(user_id)
+    comments_received = users.comments_received(user_id)
+    ratings_received = users.ratings_received(user_id)
     if rating == None:
         rating = "-"
     if not user:
@@ -290,7 +293,9 @@ def show_user(user_id):
         message = "User has no activity"
     else: 
         message = None
-    return render_template("show_user.html", user=user, user_items=user_items, comments=comments, activity=activity, rating=rating, message=message, bio=bio)
+    return render_template("show_user.html", user=user, user_items=user_items, comments=comments,
+                           activity=activity, rating=rating, message=message, bio=bio, ratings=ratings,
+                           comments_received=comments_received, ratings_received=ratings_received)
 
 @app.route("/update_bio", methods = ["GET"])
 def update_bio():

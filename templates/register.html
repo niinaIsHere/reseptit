@@ -9,20 +9,20 @@
 <body>
 <div class="form-wrapper">
   <form action="/create" method="post">
+    <label for="username">Username:</label>
+    <br>
+    <input type="text" name="username" />
+    <br>
+    <label for="password1">Password:</label>
+    <br>
+    <input type="password" name="password1" />
     <p>
-      Username: <br />
-      <input type="text" name="username" />
+    <em style="color:grey;">Password must be at least 8 characters long</em>
     </p>
-    <p>
-      Password: <br />
-      <input type="password" name="password1" />
-      <br>
-      <em style="color:grey;">Password must be at least 8 characters long</em>
-    </p>
-    <p>
-      Re-enter password: <br />
-      <input type="password" name="password2" />
-    </p>
+    <label for="password2">Re-enter password:</label>
+    <br>
+    <input type="password" name="password2" />
+    <br>
     <input type="submit" value="Create account" />
   </form>
   <a href="/" class="button">Back</a>

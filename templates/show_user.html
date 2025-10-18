@@ -23,11 +23,11 @@
   <p style="color: grey; font-size: 15px;">User created on {{ user.created }}</p>
   
   <div class="bio-box">
-    <p class="bio-title"><b>Bio</b></p>
+    <label for="bio"><p class="bio-title"><b>Bio</b></p></label>
     {% if bio == None %}
       <p><i>User hasn't yet written a bio</i></p>
     {% else %}
-      {{ bio }}
+      <pre style="font-family: Times New Roman;">{{ bio }}</pre>
     {% endif %}
   </div>
   {% if session.user_id == user.id %}
@@ -36,8 +36,7 @@
   </p>
   {% endif %}
 
-  <h3 style="padding-top: 40px;">User's Recipes</h3>
-  <p><em>{{ user.username }} has uploaded {{ user_items | count }} recipes:</em></p>
+  <h3 style="padding-top: 40px;">User's Recipes ({{ user_items | count }})</h3>
   <ul class="item-list" style="list-style-type:none;">
     {% for item in user_items %}
     <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
@@ -48,24 +47,63 @@
 
   <h3>Recent Activity</h3>
   {% if message %}
-    <p><i>{{ message }}</i>
+    <p class="message"><i>{{ message }}</i>
   {% endif %}
-  <div class="activity-box">
-    <ul style="list-style-type:none;">
-      {% for act in activity %}
-        {% if act.type == 'comment' %}
-        <li>User commented on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
-        {% elif act.type == 'rating' %}
-        <li>User gave a rating on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
-        {% endif %}
-      {% endfor %}
-    </ul>
+  {% if activity %}
+    <div class="activity-box">
+      <ul style="list-style-type:none;">
+        {% for act in activity %}
+          {% if act.type == 'comment' %}
+          <li>User commented on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
+          {% elif act.type == 'rating' %}
+          <li>User gave a rating on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  
+  <h3>Total Activity</h3>
+  <div class="row-box">
+    <div class="col-box" style="padding-right:100px;">
+      <p>
+      <b>Total Comments by User:</b>
+      </p>
+      {% if comments %}
+        <p class="special-info">{{ comments | count }}</p>
+      {% else %}
+        <p class="special-info">-</p>
+      {% endif %}
+      <p>
+      <b>Total Comments to User:</b>
+      </p>
+      {% if comments_received %}
+        <p class="special-info">{{ comments_received }}</p>
+      {% else %}
+        <p class="special-info">-</p>
+      {% endif %}
+
+    </div>
+    <div class="col-box" style="padding-left:100px;">
+      <p>
+      <b>Total Ratings by User:</b>
+      </p>
+      {% if ratings %}
+        <p class="special-info">{{ ratings | count }}</p>
+      {% else %}
+        <p class="special-info">-</p>
+      {% endif %}
+      <p>
+      <b>Total Ratings to User:</b>
+      </p>
+      {% if ratings_received %}
+        <p class="special-info">{{ ratings_received }}</p>
+      {% else %}
+        <p class="special-info">-</p>
+      {% endif %}
+
+    </div>
   </div>
-  
-  <p>
-  <a href="/" class="button">View Activity<a/>
-  </p>
-  
 </body>
 
 </html>
