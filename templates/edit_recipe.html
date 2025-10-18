@@ -2,25 +2,32 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <title>Edit Recipe</title>
 </head>
 
 <body>
-  
-  <h1>Edit Your Recipe</h1>
+  <p>
+  <div class="top-page">
+    <a href="/">Front Page</a>
+    <a href="/user/{{ session.user_id }}">My Profile</a>
+  </div>
+  </p>
 
+  <h2>Edit Your Recipe</h2>
+  <div class="form-wrapper">
   <form action="/update_item" method="post">
     <p>
-      Title: <br />
+      <b>Title:</b> <br />
       <input type="text" name="title" value="{{ item.title }}" maxlength="50" required />
     </p>
     
     <p>
-      Recipe: <br />
+      <b>Recipe:</b> <br />
       <textarea name="description" rows="8" cols="40" maxlength="1000" required>{{ item.description }}</textarea>
     </p>
     
-    <p>Recipe Type:</p>
+    <h3>Recipe Type:</h3>
     <p>
       <input type="radio" name="menu" value="Appetizer" /
         {% if item.menu == "Appetizer" %}checked{% endif %}> Appetizer
@@ -31,7 +38,7 @@
       <input type="radio" name="menu" value="Side Dish" /
         {% if item.menu == "Side Dish" %}checked{% endif %}> Side Dish
     </p>
-    <p>Skill Level:</p>
+    <h3>Skill Level:</h3>
     <p>
       <input type="radio" name="skill" value="Beginner" /
         {% if item.skill == "Beginner" %}checked{% endif %}> Beginner
@@ -67,9 +74,10 @@
     <input type="submit" value="Update recipe" />
 
     <p>
-      <a href="/">Back</a>
+      <a href="/" class="button">Back</a>
     </p>
   </form>
+  </div>
 </body>
 
 </html>

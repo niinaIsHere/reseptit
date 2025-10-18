@@ -2,6 +2,7 @@
 
 <html>
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <title>Recipe World</title>
 </head>
 
@@ -10,43 +11,48 @@
   
   {% if session.username %}
   <p>
-  Hello there! You're logged in as {{ session.username }}
+  <b>Hello there!</b> <em>You're logged in as {{ session.username }}</em>
   </p>
-  <p>
-    <a href="/user/{{ session.user_id }}">My Profile</a>
-  </p>
-  <p>
-    <a href="/create_recipe">Create New Recipe</a>
-  </p>
-  <p>
-    <a href="/search_item">Search for Recipes</a>
-  </p>
+
+  <div class="link-list">
+    <p>
+      <a href="/user/{{ session.user_id }}">My Profile</a>|
+      <a href="/create_recipe">Create New Recipe</a>|
+      <a href="/search_item">Search for Recipes</a>|
+      <a href="/logout">Log out</a>
+    </p>
+  </div>
   
-  <h2>My Recipes</h2>
-  
-  <ul>
-    {% for item in items %}
-    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
-    {% endfor %}
-  </ul>
+  <h2>New from You</h2>
+  <div class="item-list">
+    <ul style="list-style-type:none;">
+      {% for item in items %}
+      <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
   
   <h2>Most Popular</h2>
-  <ul>
-    {% for item in popular_items %}
-    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
-    {% endfor %}
-  </ul>  
+  <div class="item-list">
+    <ul style="list-style-type:none;">
+      {% for item in popular_items %}
+      <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+      {% endfor %}
+    </ul>  
+  </div>
   
-  <h2>All Recipes</h2>
-  <ul>
-    {% for item in all_items %}
-    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
-    {% endfor %}
-  </ul>
-      
-  <p>
-    <a href="/logout">Log out</a>
-  </p>
+  <h2>New Recipes</h2>
+  <div class="item-list">
+    <ul style="list-style-type:none;">
+      {% for item in new_items %}
+      <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+    <p>
+      <a href="/all_recipes" class="button">Browse</a>
+    </p>
  {% endif %}
 
   {% if 'username' not in session %}
@@ -56,8 +62,8 @@
   </p>
   
   <p>
-    <a href="/login">Log in</a>
-    <a href="/register">Create account</a>
+    <a href="/login" class="button">Log in</a>
+    <a href="/register" class="button">Create account</a>
   </p>
   {% endif %}
 </body>

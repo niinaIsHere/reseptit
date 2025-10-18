@@ -2,10 +2,12 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <title>Login</title>
 </head>
 
 <body>
+<div class="form-wrapper">
   {% if session.username %}
   <p>
     You're logged in as {{ session.username }}
@@ -23,9 +25,11 @@
       Password: <br />
       <input type="password" name="password" />
     </p>
-    <input type="submit" value="Kirjaudu" />
+    <input type="submit" value="Log in" />
   </form>
   {% endif %}
+  <a href="/" class="button">Back</a>
+</div>
 </body>
 
 </html>

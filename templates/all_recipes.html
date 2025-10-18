@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <title>All Recipes</title>
+</head>
+
+<body>
+  <p>
+  <div class="top-page">
+    <a href="/">Front Page</a>
+    <a href="/user/{{ session.user_id }}">My Profile</a>
+  </div>
+  </p>
+    
+  <form method="GET" action="/all_recipes">
+    <label for="skill">Sort by Difficulty:</label>
+    <select name="skill" id="skill">
+      <option value="">All</option>
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
+    </select>
+    <button type="submit">Filter</button>
+  </form>
+    
+  <h3>All Recipes:</h3>
+  <ul style="list-style-type:none;">
+  {% for item in all_items %}
+    <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
+  {% endfor %}
+  </ul>
+</body>
+
+</html>
+

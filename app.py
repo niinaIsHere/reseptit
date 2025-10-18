@@ -19,14 +19,26 @@ def index():
     if "user_id" in session:
         user_id = session["user_id"]
         db = sqlite3.connect("database.db")
-        user_items = items.get_user_items(user_id)
-        all_items = items.get_all_items()
-        return render_template("start.html", all_items = all_items, items=user_items)
+        user_items = items.latest_user_items(user_id)
+        new_items = items.new_items()
+        popular_items = items.popular_items()
+        return render_template("start.html", new_items = new_items, items=user_items, popular_items=popular_items)
     else:
         return render_template("start.html")
+    
+@app.route("/all_recipes", methods=["GET"])
+def all_recipes():
+    require_login()
+    skill = request.args.get("skill")
+    if skill:
+        all_items = items.get_by_skill(skill)
+    else:
+        all_items = items.get_all_items()
+    return render_template("all_recipes.html", all_items=all_items)
 
 @app.route("/item/<int:item_id>")
 def show_item(item_id):
+    require_login()
     item = items.get_item(item_id)
     item_tags = items.get_tags(item_id)
     user = users.get_user(item["user_id"])
@@ -41,6 +53,7 @@ def show_item(item_id):
 
 @app.route("/item/<int:item_id>/comments")
 def show_all_comments(item_id):
+    require_login()
     item = items.get_item(item_id)
     comments = items.get_comments(item_id)
     return render_template("all_comments.html", comments=comments, item=item)
@@ -216,12 +229,15 @@ def find_item():
     require_login()
     query = request.args.get("query")
     tags = request.args.getlist("tag")
+    message = None
     if query:
         results = items.find_item(query, tags)
+        if not results:
+            message = "No results found"
     else:
         query = ""
         results = []
-    return render_template("find_item.html", query=query, results=results)
+    return render_template("find_item.html", query=query, results=results, message=message)
 
 @app.route("/add_comment", methods = ["POST"])
 def add_comment():
@@ -259,6 +275,7 @@ def add_rating():
 
 @app.route("/user/<int:user_id>")
 def show_user(user_id):
+    require_login()
     user = users.get_user(user_id)
     bio = users.get_bio(user_id)
     user_items = items.get_user_items(user_id)

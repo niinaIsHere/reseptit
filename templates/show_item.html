@@ -2,45 +2,61 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <title>{{ item.title }}</title>
 </head>
 
 <body>
-  <h1>{{ item.title }}</h1>
-  <p>{{ item.description }}</p>
-  <p><b>Menu category:</b> {{ item.menu }}</p>
-  <p><b>Skill level:</b> {{ item.skill }}</p>
-  <p><b>Tags:</b></p>
-      <ul>
+  <p>
+    <div class="top-page">
+      <a href="/">Front Page</a>
+      <a href="/user/{{ session.user_id }}">My Profile</a>
+    </div>
+  </p>
+  <div class="page-header">
+    <p>Showing recipe</p>
+  </div>
+  <div class="recipe-view">
+    <h2 class="recipe-title">{{ item.title }}</h2>
+    <p>{{ item.description }}</p>
+    <p><b class="recipe-subtitle">Menu category:</b> {{ item.menu }}</p>
+    <p><b class="recipe-subtitle">Skill level:</b> {{ item.skill }}</p>
+    <p><b class="recipe-subtitle">Tags:</b></p>
+      <ul style="list-style-type:none;">
       {% for tag in item_tags %}
         <li>{{ tag.tag }}</li>
       {% endfor %}
-    </ul>
-  <p>
-    <i>Uploaded by</i> <a href="/user/{{ item.user_id }}">{{ username }}</a><i> on {{ item.created[:10] }}</i>
-  </p>
-
+      </ul>
+    <p>
+      <i>Uploaded by</i> <a href="/user/{{ item.user_id }}">{{ username }}</a><i> on {{ item.created[:10] }}</i>
+    </p>
+  </div>
+  
   {% if session.user_id == item.user_id %}
   <p>
-    <a href="/edit/{{ item.id }}">Edit</a>
-    <a href="/remove_item/{{ item.id }}">Delete</a>
+    <a href="/edit/{{ item.id }}" class="button">Edit</a>
+    <a href="/remove_item/{{ item.id }}" class="button">Delete</a>
   </p>
   {% endif %}
+  
+  <div class="rating-view">
+    <h3>Rating:</h3>
+      {% if rating == None %}
+        <p class="special-info"><b>-</b></p>
+      {% else %}
+        <p class="special-info">{{ rating[0] }}</p>
+    <p><em>(out of <b>{{ rating[1] }}</b> ratings)</em></p>
+    {% endif %}
 
-  <h3>Rating:</h3>
-    {% if rating == None %}
-      <p><b>-</b></p>
-    {% else %}
-      <p><h3>{{ rating[0] }}</h3>
-      <em>(out of <b>{{ rating[1] }}</b> ratings)</em></p>
-    {% endif %}
-  
     {% if user_rating != 0 %}
-      <p>You rated this recipe:<b> {{ user_rating }}</b></p>
+      <p>You rated this recipe:</p>
+      <p style="font-size: 40px;"><b> {{ user_rating }}</b></p>
     {% endif %}
-  
+  </div> 
+ 
     {% if user_rating == 0 %}
-      <p><b>Rate Recipe</b></p>
+      <p style="font-size: 20px;"><b>Rate Recipe</b></p>
+    <div class="form-wrapper" style="padding-bottom: 40px;">  
     <form action="/add_rating" method="post">
       <input type="radio" name="rating" value="1"/>1
       <input type="radio" name="rating" value="2"/>2
@@ -50,40 +66,43 @@
       <input type="hidden" name="item_id" value="{{ item.id }}"/>
       <br>
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-      <input type="submit" value="Rate" />
+      <div style="text-align: center;">
+        <input type="submit" value="Rate" />
+      </div>
     </form>
+    </div>
     {% endif %}
-
-  {% if comments | count > 10 %}
-    <h3>Showing 10 of {{ comments | count }} comments:</h3>
-  {% else %}
-    <h3>{{ comments | count }} comments:</h3>    
-  {% endif %}
   
-  <ul>
-  {% for comment in comments[-10:] %}
-    <li><i>{{ comment.created[:10] }} </i><a href="/user/{{ comment.user_id }}">{{ comment.username }}:</a><br>{{ comment.content }}</li>
-  {% endfor %}
-  </ul>
-  
-  {% if comments | count > 10 %}
-    <p>
-    <a href="/item/{{ item.id }}/comments">Show more</a>
-    </p>
-  {% endif %}  
+  <div class="comment-view">
+    {% if comments | count > 10 %}
+      <h3>Showing 10 of all comments ({{ comments | count }}):</h3>
+    {% else %}
+      <h3>Comments ({{ comments | count }}):</h3>    
+    {% endif %}
+    
+    <ul style="list-style-type:none;">
+    {% for comment in comments[-10:] %}
+      <li class="comment-box"><i>{{ comment.created[:10] }} </i><a href="/user/{{ comment.user_id }}">{{ comment.username }}:</a><br>{{ comment.content }}</li>
+    {% endfor %}
+    </ul>
+    
+    {% if comments | count > 10 %}
+      <p>
+      <a href="/item/{{ item.id }}/comments" class="button">Show more</a>
+      </p>
+    {% endif %}  
 
-  <p><b>Add a Comment:</b></p>
-  <form action="/add_comment" method="post">
-    <textarea name="content" required></textarea>    
-    <input type="hidden" name="item_id" value="{{ item.id }}"/>
-    <br>
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-    <input type="submit" value="Post" />
-  </form>  
-
-  <p>
-    <a href="/">Back</a>
-  </p>
+    <p><b>Add a Comment:</b></p>
+    <form action="/add_comment" method="post">
+        <textarea name="content" required></textarea>    
+        <input type="hidden" name="item_id" value="{{ item.id }}"/>
+        <br>
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+        <div style="text-align: center;">
+          <input type="submit" value="Post" />
+        </div>
+    </div>
+  </form>
 </body>
 
 </html>

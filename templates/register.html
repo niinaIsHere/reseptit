@@ -2,10 +2,12 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <title>Register</title>
 </head>
 
 <body>
+<div class="form-wrapper">
   <form action="/create" method="post">
     <p>
       Username: <br />
@@ -15,7 +17,7 @@
       Password: <br />
       <input type="password" name="password1" />
       <br>
-      Password must be at least 8 characters long
+      <em style="color:grey;">Password must be at least 8 characters long</em>
     </p>
     <p>
       Re-enter password: <br />
@@ -23,6 +25,8 @@
     </p>
     <input type="submit" value="Create account" />
   </form>
+  <a href="/" class="button">Back</a>
+</div>
 </body>
 
 </html>

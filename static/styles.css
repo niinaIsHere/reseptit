@@ -1,0 +1,260 @@
+body {
+  font-family: Optima, Segoe, “Segoe UI”, Candara, Calibri, Arial, sans-serif;
+  font-size: 19px;
+  background-color: #B8DFFF;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  color: #C12E75;
+  font-family: “Avant Garde”, Avantgarde, “Century Gothic”, CenturyGothic, “AppleGothic”, sans-serif;
+  font-size: 45px;
+  margin: 0px;
+  padding: 5px;
+  text-align: center;
+}
+
+h2 {
+  color: #37E287;
+  font-family: “Avant Garde”, Avantgarde, “Century Gothic”, CenturyGothic, “AppleGothic”, sans-serif;
+  font-size: 36px;
+  margin: 0px;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+}
+
+h3 {
+  color: #37E287;
+  font-family: “Avant Garde”, Avantgarde, “Century Gothic”, CenturyGothic, “AppleGothic”, sans-serif;
+  font-size: 25px;
+  text-align: center;
+}
+
+
+.container {
+  max-width: 800px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column; /* or row */
+  align-items: center;     /* horizontal alignment */
+  justify-content: center; /* vertical alignment */
+}
+
+a	{ 
+  color:#777;
+  text-decoration: none;
+  margin: 6px;
+}
+a:hover	{ 
+  color:#999; 
+}
+
+.special-info {
+  color: #D699C3;
+  font-size: 50px;
+  font-family: Impact, Haettenschweiler, “Franklin Gothic Bold”, Charcoal, “Helvetica Inserat”, “Bitstream Vera Sans Bold”, “Arial Black”, sans serif;
+}
+
+.link-list {
+  display: flex;
+  flex-direction: row;
+  font-size: 17px;
+}
+
+.link-list a {
+  color: #8C3872;
+}
+
+.item-list {
+  text-align: center;
+}
+
+ul {
+  padding-left: 0;
+}
+
+.button {
+  background-color: #D6B2CB;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.back-button {
+  position: absolute;
+  top: 100px;
+  left: 550px;
+  background-color: #D6B2CB;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.recipe-view {
+  background-color: #CEE2EB;
+  max-width: 500px;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+.recipe-title {
+  color: #D6B2CB;
+  text-align: center;
+}
+
+.recipe-subtitle {
+  color: #D6B2CB;
+  font-size: 23px;
+}
+
+.rating-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  color: grey;
+  border-top: 5px double pink;
+  width: 300px;
+}
+
+.rating-system {
+  color: black;
+}
+
+input[type="submit"] {
+  padding: 10px 15px;
+  font-size: 13px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0px;
+  padding-bottom: 60px;
+  border-top: 5px double pink;
+  width: 800px;
+}
+
+.comment-box {
+  width: 500px;
+  border: 2px solid grey;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+}
+
+textarea {
+  padding: 10px;
+  border-radius: 6px;
+  resize: vertical;
+  width: 500px;
+  height: 60px;
+}
+
+.page-header{
+  position: absolute;
+  top: 45px;
+  color: #9C8994;
+  font-size: 17px;
+}
+
+.top-page {
+  position: absolute;
+  top: 10px;
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+}
+
+.bio-box {
+  width: 400px;
+  border: 3px dotted pink;
+  border-radius: 15px;
+  color: black;
+  padding: 15px;
+  padding-top: 0px;
+  text-align: center;
+  font-family: Times New Roman;
+}
+
+.bio-title {
+  color: black;
+  font-size: 25px;
+}
+
+.activity-box {
+  padding: 20px;
+  border-left: 5px double pink;
+}
+
+.create-recipe-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} 
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+input[type="text"] {
+  width: 200px;
+  padding: 5px 15px;
+  font-size: 13px;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+input[type="password"] {
+  width: 200px;
+  padding: 5px 15px;
+  font-size: 13px;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.results-view {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-top: 50px;
+  width: 300px;
+}
+
+.message {
+  text-align: center;
+  color: grey;
+  font-style: italic;
+}

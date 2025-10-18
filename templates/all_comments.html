@@ -2,14 +2,26 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <title>{{ item.title }}</title>
 </head>
 
 <body>
+  <p>
+  <div class="top-page">
+    <a href="/">Front Page</a>
+    <a href="/user/{{ session.user_id }}">My Profile</a>
+  </div>
+  </p>
+  
+  <p>
+  <a href="/item/{{ item.id }}" class="back-button">Back to recipe</a>
+  </p>
+  
   <h3>Showing all {{ comments | count }} comments:</h3>
-  <ul>
+  <ul style="list-style-type:none;">
   {% for comment in comments %}
-    <li><i>{{ comment.created[:10] }} </i><a href="/user/{{ comment.user_id }}">{{ comment.username }}:</a><br>{{ comment.content }}</li>
+    <li class="comment-box"><i>{{ comment.created[:10] }} </i><a href="/user/{{ comment.user_id }}">{{ comment.username }}:</a><br>{{ comment.content }}</li>
   {% endfor %}
   </ul>
   
@@ -19,12 +31,10 @@
     <input type="hidden" name="item_id" value="{{ item.id }}"/>
     <br>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"/>
-    <input type="submit" value="Post" />
+    <div style="text-align: center;">
+      <input type="submit" value="Post" />
+    </div>
   </form>
-
-  <p>
-    <a href="/">Back</a>
-  </p>
 </body>
 
 </html>

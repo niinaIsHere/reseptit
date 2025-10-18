@@ -2,58 +2,70 @@
 <html>
 
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <title>Profile</title>
 </head>
 
 <body>
-  <h1>{{ user.username }}</h1>
+  <p>
+    <div class="top-page">
+      <a href="/">Front Page</a>
+      <a href="/user/{{ session.user_id }}">My Profile</a>
+    </div>
+  </p>
+  <div class="page-header">
+    <p>Showing user</p>
+  </div>
+
   
-  <p>User created on {{ user.created }}</p>
+  <h2>{{ user.username }}</h2>
   
-  <div>
-  <p><b>Bio</b></p>
+  <p style="color: grey; font-size: 15px;">User created on {{ user.created }}</p>
   
+  <div class="bio-box">
+    <p class="bio-title"><b>Bio</b></p>
     {% if bio == None %}
       <p><i>User hasn't yet written a bio</i></p>
     {% else %}
       {{ bio }}
     {% endif %}
-    
-    {% if session.user_id == user.id %}
-    <p>
-    <a href="/update_bio">Edit</a>
-    </p>
-    {% endif %}
   </div>
+  {% if session.user_id == user.id %}
+  <p>
+  <a href="/update_bio" class="button">Edit</a>
+  </p>
+  {% endif %}
 
-  <h3>User's Recipes</h3>
-  <p>{{ user.username }} has uploaded {{ user_items | count }} recipes</p>
-  <ul>
+  <h3 style="padding-top: 40px;">User's Recipes</h3>
+  <p><em>{{ user.username }} has uploaded {{ user_items | count }} recipes:</em></p>
+  <ul class="item-list" style="list-style-type:none;">
     {% for item in user_items %}
     <li><a href="/item/{{ item.id }}">{{ item.title }}</a></li>
     {% endfor %}
   </ul>
   
-  <p><b>Average Rating:</b></p><h2>{{ rating }}</h2>
+  <p style="font-size: 25px;"><b>Average Rating:</b></p><h2 class="special-info">{{ rating }}</h2>
 
   <h3>Recent Activity</h3>
   {% if message %}
     <p><i>{{ message }}</i>
   {% endif %}
-  <ul>
-    {% for act in activity %}
-      {% if act.type == 'comment' %}
-      <li>User commented on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
-      {% elif act.type == 'rating' %}
-      <li>User gave a rating on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-
+  <div class="activity-box">
+    <ul style="list-style-type:none;">
+      {% for act in activity %}
+        {% if act.type == 'comment' %}
+        <li>User commented on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
+        {% elif act.type == 'rating' %}
+        <li>User gave a rating on <a href="/item/{{ act.id }}">{{ act.title }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+  
   <p>
-    <a href="/">Back</a>
+  <a href="/" class="button">View Activity<a/>
   </p>
-
+  
 </body>
 
 </html>

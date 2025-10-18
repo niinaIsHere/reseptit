@@ -153,3 +153,34 @@ def get_avg_rating(item_id):
 def remove_ratings(item_id):
     sql = """DELETE FROM ratings WHERE recipe_id = ?"""
     return db.execute(sql, [item_id])
+
+def popular_items():
+    sql = """SELECT r.id AS id, r.title,
+            COUNT(DISTINCT c.id) AS comment_count, COUNT(DISTINCT rt.id) AS rating_count, AVG(rt.rating) AS average_rating,
+            (COUNT(DISTINCT rt.id) * 0.5 + AVG(rt.rating) * 2 + COUNT(DISTINCT c.id) * 0.3) AS popularity_score
+            FROM recipes r
+            LEFT JOIN comments c ON r.id = c.recipe_id
+            LEFT JOIN ratings rt ON r.id = rt.recipe_id
+            GROUP BY r.id, r.title
+            ORDER BY popularity_score DESC
+            LIMIT 5;"""
+    return db.query(sql)
+
+def new_items():
+    sql = """SELECT id, user_id, title, description, menu, skill, created
+                FROM recipes
+                ORDER BY id DESC
+                LIMIT 5"""
+    return db.query(sql)
+
+def latest_user_items(user_id):
+    sql = """SELECT id, user_id, title, description, menu, skill, created
+                FROM recipes WHERE user_id = ?
+                ORDER BY id DESC
+                LIMIT 5"""
+    return db.query(sql, [user_id])
+
+def get_by_skill(skill):
+    sql = """SELECT id, title
+                FROM recipes WHERE skill = ?"""
+    return db.query(sql, [skill])
