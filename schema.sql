@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS ratings (
 	id INTEGER PRIMARY KEY,
 	user_id INTEGER REFERENCES users,
 	recipe_id INTEGER REFERENCES recipes,
-	rating INTEGER
+	rating INTEGER,
+	created TEXT
 );
 
 CREATE TABLE IF NOT EXISTS tags (
