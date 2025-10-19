@@ -153,11 +153,10 @@ def valid_rating(rating):
     """Check if given rating is valid"""
     try:
         rating_value = int(rating)
-    except:
+    except (ValueError, TypeError):
         return (False, "Rating in invalid format")
-    else:
-        if rating_value < 1 or rating_value > 5:
-            return (False, "Rating must be between 1 and 5")
+    if rating_value < 1 or rating_value > 5:
+        return (False, "Rating must be between 1 and 5")
     return (True, None)
 
 def get_avg_rating(item_id):

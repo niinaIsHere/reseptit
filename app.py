@@ -23,7 +23,7 @@ def index():
     Renders the front screen page"""
     if "user_id" in session:
         user_id = session["user_id"]
-        db = sqlite3.connect("database.db")
+        db.get_connection()
         user_items = items.latest_user_items(user_id)
         new_items = items.new_items()
         popular_items = items.popular_items()

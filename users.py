@@ -1,6 +1,6 @@
-import db
-from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+import db
 
 def create_user(username, password):
     """Adds a new user into database"""
