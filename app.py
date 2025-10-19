@@ -151,7 +151,7 @@ def recipe_result():
     for tag in tags:
         items.add_tag(recipe_id, tag)
 
-    return redirect("/")
+    return redirect("/item/" + str(recipe_id))
 
 @app.route("/edit/<int:item_id>")
 def edit_recipe(item_id):
@@ -284,8 +284,6 @@ def show_user(user_id):
     ratings = users.get_ratings(user_id)
     comments_received = users.comments_received(user_id)
     ratings_received = users.ratings_received(user_id)
-    if rating == None:
-        rating = "-"
     if not user:
         abort(403)
     activity = users.recent_activity(user_id)

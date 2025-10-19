@@ -1,7 +1,8 @@
+
 body {
   font-family: Optima, Segoe, “Segoe UI”, Candara, Calibri, Arial, sans-serif;
   font-size: 19px;
-  background-color: #B8DFFF;
+  background-color: #E8FDFC;
   margin: 0;
   padding: 20px;
   display: flex;
@@ -11,7 +12,7 @@ body {
 }
 
 h1 {
-  color: #C12E75;
+  color: #8B11B8;
   font-family: “Avant Garde”, Avantgarde, “Century Gothic”, CenturyGothic, “AppleGothic”, sans-serif;
   font-size: 45px;
   margin: 0px;
@@ -20,7 +21,7 @@ h1 {
 }
 
 h2 {
-  color: #37E287;
+  color: #FF5C95;
   font-family: “Avant Garde”, Avantgarde, “Century Gothic”, CenturyGothic, “AppleGothic”, sans-serif;
   font-size: 36px;
   margin: 0px;
@@ -30,7 +31,7 @@ h2 {
 }
 
 h3 {
-  color: #37E287;
+  color: #612B75;
   font-family: “Avant Garde”, Avantgarde, “Century Gothic”, CenturyGothic, “AppleGothic”, sans-serif;
   font-size: 25px;
   text-align: center;
@@ -49,18 +50,31 @@ h3 {
 }
 
 a	{ 
-  color:#777;
+  color:#940D94;
   text-decoration: none;
   margin: 6px;
 }
 a:hover	{ 
-  color:#999; 
+  color:#F894FF; 
 }
 
 .special-info {
   color: #D699C3;
   font-size: 50px;
   font-family: Impact, Haettenschweiler, “Franklin Gothic Bold”, Charcoal, “Helvetica Inserat”, “Bitstream Vera Sans Bold”, “Arial Black”, sans serif;
+  background-color: #FFFAE5;
+  padding: 40px;
+  border-radius: 100px;
+}
+
+.special-info-stats {
+  color: #D699C3;
+  font-size: 50px;
+  font-family: Impact, Haettenschweiler, “Franklin Gothic Bold”, Charcoal, “Helvetica Inserat”, “Bitstream Vera Sans Bold”, “Arial Black”, sans serif;
+  background-color: #D1FFD1;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 100px;
 }
 
 .link-list {
@@ -82,12 +96,16 @@ ul {
 }
 
 .button {
-  background-color: #D6B2CB;
+  background-color: #B2B4F0;
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
   text-decoration: none;
   display: inline-block;
+}
+
+.button a:hover {
+  color: blue;
 }
 
 .back-button {
@@ -103,22 +121,23 @@ ul {
 }
 
 .recipe-view {
-  background-color: #CEE2EB;
+  background-color: #FAE3E4;
   max-width: 500px;
   text-align: center;
   padding-top: 30px;
   padding-bottom: 20px;
   padding-left: 80px;
   padding-right: 80px;
+  border-radius: 70px;
 }
 
 .recipe-title {
-  color: #D6B2CB;
+  color: #6E0D4E;
   text-align: center;
 }
 
 .recipe-subtitle {
-  color: #D6B2CB;
+  color: #350D6E;
   font-size: 23px;
 }
 
@@ -141,10 +160,10 @@ ul {
 input[type="submit"] {
   padding: 10px 15px;
   font-size: 13px;
-  background-color: #0077cc;
+  background-color: #B2B4F0;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
 }
 
@@ -193,7 +212,7 @@ textarea {
 
 .bio-box {
   width: 400px;
-  border: 3px dotted pink;
+  border: 3px dotted #88F288;
   border-radius: 15px;
   color: black;
   padding: 15px;

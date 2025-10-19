@@ -42,7 +42,7 @@
   <div class="rating-view">
     <h3>Rating:</h3>
       {% if rating == None %}
-        <p class="special-info"><b>-</b></p>
+        <p class="special-info" style="background-color:transparent;"><b>-</b></p>
       {% else %}
         <p class="special-info">{{ rating[0] }}</p>
     <p><em>(out of <b>{{ rating[1] }}</b> ratings)</em></p>

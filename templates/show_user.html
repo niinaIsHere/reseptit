@@ -18,7 +18,7 @@
   </div>
 
   
-  <h2>{{ user.username }}</h2>
+  <h2 style="color:#90ED72;">{{ user.username }}</h2>
   
   <p style="color: grey; font-size: 15px;">User created on {{ user.created }}</p>
   
@@ -43,7 +43,12 @@
     {% endfor %}
   </ul>
   
-  <p style="font-size: 25px;"><b>Average Rating:</b></p><h2 class="special-info">{{ rating }}</h2>
+  <p style="font-size: 25px;"><b>Average Rating:</b></p>
+  {% if rating %}
+    <p class="special-info">{{ rating }}</p>
+  {% else %}
+    <p class="special-info" style="background-color:transparent">-</p>
+  {% endif %}
 
   <h3>Recent Activity</h3>
   {% if message %}
@@ -67,39 +72,39 @@
   <div class="row-box">
     <div class="col-box" style="padding-right:100px;">
       <p>
-      <b>Total Comments by User:</b>
+      <b>Comments by User:</b>
       </p>
       {% if comments %}
-        <p class="special-info">{{ comments | count }}</p>
+        <p class="special-info-stats">{{ comments | count }}</p>
       {% else %}
-        <p class="special-info">-</p>
+        <p class="special-info" style="background-color:transparent;">-</p>
       {% endif %}
       <p>
-      <b>Total Comments to User:</b>
+      <b>Comments to User:</b>
       </p>
       {% if comments_received %}
-        <p class="special-info">{{ comments_received }}</p>
+        <p class="special-info-stats">{{ comments_received }}</p>
       {% else %}
-        <p class="special-info">-</p>
+        <p class="special-info" style="background-color:transparent;">-</p>
       {% endif %}
 
     </div>
     <div class="col-box" style="padding-left:100px;">
       <p>
-      <b>Total Ratings by User:</b>
+      <b>Ratings by User:</b>
       </p>
       {% if ratings %}
-        <p class="special-info">{{ ratings | count }}</p>
+        <p class="special-info-stats">{{ ratings | count }}</p>
       {% else %}
-        <p class="special-info">-</p>
+        <p class="special-info" style="background-color:transparent;">-</p>
       {% endif %}
       <p>
-      <b>Total Ratings to User:</b>
+      <b>Ratings to User:</b>
       </p>
       {% if ratings_received %}
-        <p class="special-info">{{ ratings_received }}</p>
+        <p class="special-info-stats">{{ ratings_received }}</p>
       {% else %}
-        <p class="special-info">-</p>
+        <p class="special-info" style="background-color:transparent;">-</p>
       {% endif %}
 
     </div>
